@@ -48,3 +48,10 @@ def read_item(item_id: int, q: Union[str, None] = None):
 
 # Rutas de la API /todos
 app.include_router(todos.router, prefix="", tags=["Todos"])
+
+
+# ✅ Crear las tablas si no existen (Render no ejecuta migraciones automáticamente)
+from database import Base, engine
+import models
+
+Base.metadata.create_all(bind=engine)
