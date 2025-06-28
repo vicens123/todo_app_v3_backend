@@ -1,4 +1,5 @@
 from sqlalchemy.orm import Session
+from typing import Optional
 import models, schema
 
 def create_todo(db: Session, todo: schema.ToDoRequest):
@@ -8,7 +9,7 @@ def create_todo(db: Session, todo: schema.ToDoRequest):
     db.refresh(db_todo)
     return db_todo
 
-def read_todos(db: Session, completed: bool = None):
+def read_todos(db: Session, completed: Optional[bool] = None):
     if completed is None:
         return db.query(models.Todo).all()
     else:
