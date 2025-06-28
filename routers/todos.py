@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from typing import List
+from typing import List, Optional
 
 from schema import ToDoRequest, ToDoResponse
 from database import SessionLocal
@@ -16,7 +16,7 @@ def get_db():
         db.close()
 
 @router.get("/todos", response_model=List[ToDoResponse])
-def get_todos(completed: bool = None, db: Session = Depends(get_db)):
+def get_todos(completed: Optional[bool] = None, db: Session = Depends(get_db)):
     return crud.read_todos(db, completed)
 
 @router.get("/todos/{id}", response_model=ToDoResponse)
